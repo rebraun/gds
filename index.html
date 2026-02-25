@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geo Data Strategies</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <img src="logo.png" alt="Geo Data Strategies Logo" class="logo" />
+    <h1 class="tagline">WORK SMARTER – EARN MORE</h1>
+  </div>
+
+  <nav>
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger">&#9776;</label>
+
+    <ul class="menu">
+      <li><a href="#challenge">Challenge</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#map1">Customer Map</a></li>
+      <li><a href="#map2">Proximity Map</a></li>
+      <li><a href="#data">Data</a></li>
+      <li><a href="#growth">Growth</a></li>
+      <li><a href="#industry">Industry</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section id="challenge" class="card">
+    <h2>The Challenge</h2>
+    <p class="section-intro">Service businesses lose revenue when customers are geographically scattered:</p>
+    <ul>
+      <li>Excessive drive time and wasted fuel</li>
+      <li>Fewer appointments completed per day</li>
+      <li>Higher operational costs and crew fatigue</li>
+      <li>Isolated customers that aren't profitable to serve</li>
+    </ul>
+  </section>
+
+  <section id="solutions" class="card">
+    <h2>How GDS Can Help</h2>
+    <p class="section-intro">We combine geospatial intelligence with enriched local address data to turn your customer data into actionable insights:</p>
+    <ul>
+      <li>Map your current customer base</li>
+      <li>Identify isolated, low-margin service areas</li>
+      <li>Locate high-potential neighborhoods for expansion</li>
+      <li>Target new prospects within 0.1–10 miles of existing customers</li>
+      <li>Visualize customer value by spend level</li>
+      <li>Increase cross-sell opportunities with smart clustering</li>
+    </ul>
+  </section>
+
+  <section id="map1" class="card">
+    <h2>Where Are Your Customers Located?</h2>
+    <img src="customer_density_map.png" alt="Customer Density Map" class="map-img" />
+  </section>
+
+  <section id="map2" class="card">
+    <h2>Find New Customers Near Existing Customers</h2>
+    <img src="proximity_map.png" alt="Proximity Map" class="map-img" />
+  </section>
+
+  <section id="data" class="card">
+    <h2>Our Data</h2>
+    <p class="section-intro">150k+ GeoCoded Greenville County property records. Target by attributes like:</p>
+    <ul>
+      <li>Subdivision Name</li>
+      <li>Deed Date</li>
+      <li>Sale Price</li>
+      <li>Street Name</li>
+      <li>Owner Occupied</li>
+      <li>Pool Ownership</li>
+      <li>Lot Size</li>
+      <li>Number of Bedrooms & Baths</li>
+      <li>Zip Code</li>
+      <li>Proximity to an Address</li>
+    </ul>
+  </section>
+
+  <section id="growth" class="card">
+    <h2>Growth Strategies</h2>
+    <p class="section-intro">What's the value of 1, 2, 3, etc. customers per day, per week, per crew?</p>
+    <ul>
+      <li>Cross-sell / Up-sell</li>
+      <li>Targeted Campaigns</li>
+      <li>Customer Incentives & Referrals</li>
+      <li>Signage and Visibility</li>
+      <li>Ad Spend – Custom Audiences</li>
+    </ul>
+  </section>
+
+  <section id="industry" class="card">
+    <h2>Industry-Specific Solutions</h2>
+    <p class="section-intro">We tailor strategies for service businesses including landscaping, pest control, HVAC, cleaning, pool services, roofing, and more.</p>
+  </section>
+
+  <section id="contact" class="card">
+    <h2>Contact Us</h2>
+
+    <form id="contact-form" action="https://formspree.io/f/mojaoker" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+      <!-- Honeypot spam trap -->
+      <input type="text" name="_gotcha" style="display:none">
+
+      <button type="submit" id="submit-btn">Send Message</button>
+    </form>
+
+    <div id="form-success" class="form-message success">Message sent successfully!</div>
+    <div id="form-error" class="form-message error">There was an issue sending your message.</div>
+
+    <p>Email: <a href="mailto:owner@geodatastrat.com">owner@geodatastrat.com</a></p>
+    <p>Website: <a href="https://geodatastrat.com">geodatastrat.com</a></p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2025 Geo Data Strategies — Work Smarter, Earn More</p>
+</footer>
+
+<script>
+  // Auto-close hamburger menu
+  document.querySelectorAll('.menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('menu-toggle').checked = false;
+    });
+  });
+
+  // AJAX Formspree submission with enhancements
+  const form = document.getElementById("contact-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const successMsg = document.getElementById("form-success");
+  const errorMsg = document.getElementById("form-error");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    successMsg.style.display = "none";
+    errorMsg.style.display = "none";
+
+    submitBtn.classList.add("loading");
+    submitBtn.textContent = "Sending...";
+
+    const data = new FormData(form);
+
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" }
+    });
+
+    submitBtn.classList.remove("loading");
+    submitBtn.textContent = "Send Message";
+
+    if (response.ok) {
+      successMsg.style.display = "block";
+      form.reset();
+    } else {
+      errorMsg.style.display = "block";
+    }
+  });
+</script>
+
+</body>
+</html>
+
